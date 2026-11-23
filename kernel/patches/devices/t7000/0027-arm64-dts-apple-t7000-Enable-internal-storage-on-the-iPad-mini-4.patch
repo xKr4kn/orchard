@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: xKr4kn <xKr4kn@users.noreply.github.com>
+Date: Mon, 23 Nov 2026 10:30:00 -0800
+Subject: [PATCH] arm64: dts: apple: t7000: Enable internal storage on the iPad mini 4
+
+The T7000 ANS nodes are disabled in the SoC files. The iPad mini 4
+(J97) uses the same ANS1 storage processor as the iPod touch 6 and the
+iPad Air 2. Enable the ANS block and its mailbox, and keep ps_ans on as
+on the N102: the boot loader starts the firmware and iOS never powers it
+down.
+
+Signed-off-by: xKr4kn <xKr4kn@users.noreply.github.com>
+---
+ arch/arm64/boot/dts/apple/t7000-j97.dts | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/apple/t7000-j97.dts b/arch/arm64/boot/dts/apple/t7000-j97.dts
+--- a/arch/arm64/boot/dts/apple/t7000-j97.dts
++++ b/arch/arm64/boot/dts/apple/t7000-j97.dts
+@@ -16,4 +16,16 @@
+ /* ADT uart2/wlan module-instance, for brcmfmac's firmware selection */
+ &wifi0 {
+ 	brcm,board-type = "apple,zinfandelb";
+ };
++
++&ans {
++	status = "okay";
++};
++
++&ans_mbox {
++	status = "okay";
++};
++
++&ps_ans {
++	apple,always-on;
++};
